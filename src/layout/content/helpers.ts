@@ -1,25 +1,19 @@
-import { FormFields, FormFieldNames, FormElement } from "./types";
+import { FormFieldNames, FormFields } from "./types";
 
 export const initialFormState: FormFields = {
-  [FormFieldNames.Name]: "",
-  [FormFieldNames.Email]: "",
-  [FormFieldNames.ConfirmEmail]: "",
-};
-
-export const formElements: FormElement[] = [
-  {
-    name: FormFieldNames.Name,
+  [FormFieldNames.Name]: {
     type: "text",
     label: "Full name",
+    value: "",
   },
-  {
-    name: FormFieldNames.Email,
+  [FormFieldNames.Email]: {
     type: "email",
     label: "Email",
+    value: "",
   },
-  {
-    name: FormFieldNames.ConfirmEmail,
+  [FormFieldNames.ConfirmEmail]: {
     type: "email",
     label: "Confirm email",
+    value: "",
   },
-];
+};

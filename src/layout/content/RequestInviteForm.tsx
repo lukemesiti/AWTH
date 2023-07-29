@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FormInput, Modal } from "../../components";
-import { formElements, initialFormState } from "./helpers";
-import { FormFields } from "./types";
+import { initialFormState } from "./helpers";
+import { FormFieldNames, FormFields } from "./types";
 
 interface ComponentProps {
   isOpen: boolean;
@@ -14,7 +14,14 @@ const RequestInviteForm: React.FC<ComponentProps> = ({ isOpen, setIsOpen }) => {
   const handleChange = (target: EventTarget & HTMLInputElement) => {
     const { name, value } = target;
 
-    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
+    const currentValue = formData[name as FormFieldNames];
+    setFormData({
+      ...formData,
+      [name]: {
+        ...currentValue,
+        value,
+      },
+    });
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -26,18 +33,18 @@ const RequestInviteForm: React.FC<ComponentProps> = ({ isOpen, setIsOpen }) => {
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen} title="Request an invite">
       <form className="space-y-6" onSubmit={handleSubmit}>
-        {formElements.map((element) => (
-          <div className="mt-2">
-            <FormInput
-              id={element.name}
-              name={element.name}
-              type={element.type}
-              required
-              label={element.label}
-              onChange={handleChange}
-            />
-          </div>
-        ))}
+        {Object.keys(formData).map((objectKey) => {
+          const element = formData[objectKey as FormFieldNames];
+          return (
+            <div className="mt-2">
+              <FormInput
+                id={objectKey}
+                element={element}
+                onChange={handleChange}
+              />
+            </div>
+          );
+        })}
 
         <div>
           <button

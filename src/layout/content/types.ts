@@ -5,13 +5,14 @@ export enum FormFieldNames {
 }
 
 export interface FormFields {
-  [FormFieldNames.Name]: string;
-  [FormFieldNames.Email]: string;
-  [FormFieldNames.ConfirmEmail]: string;
+  [FormFieldNames.Name]: FormElement;
+  [FormFieldNames.Email]: FormElement;
+  [FormFieldNames.ConfirmEmail]: FormElement;
 }
 
 export interface FormElement {
-  name: FormFieldNames;
   type: React.HTMLInputTypeAttribute;
   label: string;
+  value: string;
+  error?: string;
 }
