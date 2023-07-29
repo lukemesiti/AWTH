@@ -1,5 +1,7 @@
-function App() {
-  return <h1 className="text-3xl font-bold underline">Hello world!</h1>;
-}
+import { Container as Layout } from "./layout/Container";
+
+const App: React.FC = () => {
+  return <Layout />;
+};
 
 export default App;
