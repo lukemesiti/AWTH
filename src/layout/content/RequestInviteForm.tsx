@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FormInput, Modal } from "../../components";
 import { initialFormState } from "./helpers";
 import { FormFieldNames, FormFields } from "./types";
+import { BUIButton } from "../../components/BUIButton";
 
 interface ComponentProps {
   isOpen: boolean;
@@ -46,14 +47,7 @@ const RequestInviteForm: React.FC<ComponentProps> = ({ isOpen, setIsOpen }) => {
           );
         })}
 
-        <div>
-          <button
-            type="submit"
-            className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            Send
-          </button>
-        </div>
+        <BUIButton fullWidth>Send</BUIButton>
       </form>
     </Modal>
   );

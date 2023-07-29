@@ -1,17 +1,15 @@
 import { useState } from "react";
 import { RequestInviteForm } from "./RequestInviteForm";
+import { BUIButton } from "../../components/BUIButton";
 
 const RequestInviteButton: React.FC = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
 
   return (
     <>
-      <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        onClick={() => setIsFormOpen(true)}
-      >
+      <BUIButton onClick={() => setIsFormOpen(true)}>
         Request an invite
-      </button>
+      </BUIButton>
       <RequestInviteForm isOpen={isFormOpen} setIsOpen={setIsFormOpen} />
     </>
   );
