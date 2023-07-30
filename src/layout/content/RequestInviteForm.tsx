@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FormInput, Modal } from "../../components";
+import { BUIFormInput, Modal } from "../../components";
 import { initialFormState } from "./helpers";
 import { FormFieldNames, FormFields } from "./types";
 import { BUIButton } from "../../components/BUIButton";
@@ -12,8 +12,8 @@ interface ComponentProps {
 const RequestInviteForm: React.FC<ComponentProps> = ({ isOpen, setIsOpen }) => {
   const [formData, setFormData] = useState<FormFields>(initialFormState);
 
-  const handleChange = (target: EventTarget & HTMLInputElement) => {
-    const { name, value } = target;
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
 
     const currentValue = formData[name as FormFieldNames];
     setFormData({
@@ -38,7 +38,7 @@ const RequestInviteForm: React.FC<ComponentProps> = ({ isOpen, setIsOpen }) => {
           const element = formData[objectKey as FormFieldNames];
           return (
             <div className="mt-2">
-              <FormInput
+              <BUIFormInput
                 id={objectKey}
                 element={element}
                 onChange={handleChange}
