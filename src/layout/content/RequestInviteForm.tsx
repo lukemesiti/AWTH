@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BUIFormInput, Modal } from "../../components";
+import { BUIFormInput, BUIModal } from "../../components";
 import { initialFormState } from "./helpers";
 import { FormFieldNames, FormFields } from "./types";
 import { BUIButton } from "../../components/BUIButton";
@@ -32,7 +32,7 @@ const RequestInviteForm: React.FC<ComponentProps> = ({ isOpen, setIsOpen }) => {
   };
 
   return (
-    <Modal isOpen={isOpen} setIsOpen={setIsOpen} title="Request an invite">
+    <BUIModal isOpen={isOpen} setIsOpen={setIsOpen} title="Request an invite">
       <form className="space-y-6" onSubmit={handleSubmit}>
         {Object.keys(formData).map((objectKey) => {
           const element = formData[objectKey as FormFieldNames];
@@ -49,7 +49,7 @@ const RequestInviteForm: React.FC<ComponentProps> = ({ isOpen, setIsOpen }) => {
 
         <BUIButton fullWidth>Send</BUIButton>
       </form>
-    </Modal>
+    </BUIModal>
   );
 };
 

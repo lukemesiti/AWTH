@@ -7,7 +7,7 @@ interface ComponentProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Modal: React.FC<PropsWithChildren<ComponentProps>> = ({
+const BUIModal: React.FC<PropsWithChildren<ComponentProps>> = ({
   title,
   isOpen,
   setIsOpen,
@@ -60,4 +60,4 @@ const Modal: React.FC<PropsWithChildren<ComponentProps>> = ({
   );
 };
 
-export { Modal };
+export { BUIModal };
