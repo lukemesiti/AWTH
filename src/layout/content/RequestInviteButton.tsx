@@ -1,7 +1,7 @@
-import { BUIButton } from "../../components/BUIButton";
-import { RequestInviteForm } from "./RequestInviteForm";
-import { SuccessModal } from "./SuccessModal";
-import { useModalDisplay } from "./useModalDisplay";
+import { BUIButton } from "../../components";
+import { RequestInviteForm } from "../../inviteForm";
+import { SuccessModal } from "../../successMessage";
+import { useModalDisplay } from "../../context";
 
 const RequestInviteButton: React.FC = () => {
   const { setModal } = useModalDisplay();

@@ -1,17 +1,15 @@
+import clone from "just-clone";
 import { useCallback, useEffect, useState } from "react";
-import { BUIFormInput, BUIModal } from "../../components";
+import { BUIFormInput, BUIModal, BUIButton } from "../components";
+import { Current, useModalDisplay } from "../context";
 import { initialFormState } from "./helpers";
 import { FormFieldNames, FormFields, RequestInvite } from "./types";
-import { BUIButton } from "../../components/BUIButton";
+import { useRequestInvite } from "./useRequestInvite";
 import {
-  validateForm,
   convertFormFieldsToFormValues,
   setFormErrorsToFormFields,
+  validateForm,
 } from "./validation";
-import clone from "just-clone";
-import { useRequestInvite } from "./useRequestInvite";
-import { useModalDisplay } from "./useModalDisplay";
-import { Current } from "./ModalDisplayContext";
 
 const RequestInviteForm: React.FC = () => {
   const [formData, setFormData] = useState<FormFields>(initialFormState);

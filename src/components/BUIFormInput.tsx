@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FormElement } from "../layout/content/types";
+import { FormElement } from "./types";
 
 interface ComponentProps
   extends React.DetailedHTMLProps<

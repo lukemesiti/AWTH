@@ -1,6 +1,5 @@
-import { BUIModal } from "../../components";
-import { BUIButton } from "../../components/BUIButton";
-import { useModalDisplay } from "./useModalDisplay";
+import { BUIModal, BUIButton } from "../components";
+import { useModalDisplay } from "../context";
 
 const SuccessModal: React.FC = () => {
   const { modal, setModal } = useModalDisplay();
