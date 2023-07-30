@@ -31,7 +31,7 @@ const BUIFormInput: React.FC<ComponentProps> = (props) => {
         id={id}
         name={id}
         type={type}
-        className={`block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ${
+        className={`block w-full rounded-md border-0 p-1.5 text-gray-900 ring-1 ring-inset ${
           error ? "ring-red-600" : "ring-gray-300"
         } placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6`}
       />
