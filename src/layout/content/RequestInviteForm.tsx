@@ -3,6 +3,12 @@ import { BUIFormInput, BUIModal } from "../../components";
 import { initialFormState } from "./helpers";
 import { FormFieldNames, FormFields } from "./types";
 import { BUIButton } from "../../components/BUIButton";
+import {
+  validateForm,
+  convertFormFieldsToFormValues,
+  setFormErrorsToFormFields,
+} from "./validation";
+import clone from "just-clone";
 
 interface ComponentProps {
   isOpen: boolean;
@@ -14,21 +20,30 @@ const RequestInviteForm: React.FC<ComponentProps> = ({ isOpen, setIsOpen }) => {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
+    const clonedFormData = clone(formData);
 
-    const currentValue = formData[name as FormFieldNames];
-    setFormData({
-      ...formData,
-      [name]: {
-        ...currentValue,
-        value,
-      },
-    });
+    clonedFormData[name as FormFieldNames] = {
+      ...clonedFormData[name as FormFieldNames],
+      value,
+    };
+
+    setFormData(clonedFormData);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    console.log(formData);
+    const validationErrors = validateForm(
+      convertFormFieldsToFormValues(formData)
+    );
+
+    const formDataWithErrors = setFormErrorsToFormFields(
+      formData,
+      validationErrors
+    );
+    setFormData(formDataWithErrors);
+
+    console.log(formDataWithErrors);
   };
 
   return (
@@ -47,7 +62,9 @@ const RequestInviteForm: React.FC<ComponentProps> = ({ isOpen, setIsOpen }) => {
           );
         })}
 
-        <BUIButton fullWidth>Send</BUIButton>
+        <BUIButton fullWidth type="submit">
+          Send
+        </BUIButton>
       </form>
     </BUIModal>
   );
