@@ -6,7 +6,11 @@ export function validateForm(form: FormValues): FormErrors {
   const emailError = validateEmail(form.email);
   let confirmEmailError = validateEmail(form.confirmEmail);
 
-  if (!emailError && !confirmEmailError && form.email !== form.confirmEmail) {
+  if (
+    !emailError &&
+    !confirmEmailError &&
+    form.email.value !== form.confirmEmail.value
+  ) {
     confirmEmailError = "Emails must match";
   }
 

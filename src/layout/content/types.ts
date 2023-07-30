@@ -16,3 +16,12 @@ export interface FormElement {
   value: string;
   error?: string;
 }
+
+export interface RequestInvite {
+  name: string;
+  email: string;
+}
+
+export interface ErrorResponse {
+  errorMessage: string;
+}
