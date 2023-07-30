@@ -21,7 +21,7 @@ export function validateForm(form: FormValues): FormErrors {
   };
 }
 
-function validateField(field: FormValidationItem): string {
+export function validateField(field: FormValidationItem): string {
   const { label, value } = field;
   const trimmedValue = value.trim();
 
@@ -36,7 +36,7 @@ function validateField(field: FormValidationItem): string {
   return "";
 }
 
-function validateEmail(email: FormValidationItem): string {
+export function validateEmail(email: FormValidationItem): string {
   const error: string = validateField(email);
 
   if (error) return error;
@@ -48,7 +48,7 @@ function validateEmail(email: FormValidationItem): string {
   return "";
 }
 
-const isEmpty = (value: string): boolean => value === "";
+const isEmpty = (value: string): boolean => value.trim() === "";
 
 const isBetween = (length: number, min: number, max: number): boolean =>
   length >= min && length <= max;
