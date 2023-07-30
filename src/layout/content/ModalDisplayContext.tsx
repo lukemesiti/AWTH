@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, createContext, useState } from "react";
 
-type Current = "closed" | "form" | "success";
+export type Current = "closed" | "form" | "success";
 
 type State = {
   modal: Current;
@@ -12,7 +12,9 @@ export const ModalDisplayContext = createContext<{
   setModal: React.Dispatch<React.SetStateAction<Current>>;
 }>({} as State);
 
-const ModalDisplayProvider: React.FC<PropsWithChildren> = ({ children }) => {
+export const ModalDisplayProvider: React.FC<PropsWithChildren> = ({
+  children,
+}) => {
   const [modal, setModal] = useState<Current>("closed");
 
   return (
@@ -21,5 +23,3 @@ const ModalDisplayProvider: React.FC<PropsWithChildren> = ({ children }) => {
     </ModalDisplayContext.Provider>
   );
 };
-
-export { ModalDisplayProvider };

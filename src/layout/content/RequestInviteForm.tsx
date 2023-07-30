@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { BUIFormInput, BUIModal } from "../../components";
 import { initialFormState } from "./helpers";
 import { FormFieldNames, FormFields, RequestInvite } from "./types";
@@ -11,6 +11,7 @@ import {
 import clone from "just-clone";
 import { useRequestInvite } from "./useRequestInvite";
 import { useModalDisplay } from "./useModalDisplay";
+import { Current } from "./ModalDisplayContext";
 
 const RequestInviteForm: React.FC = () => {
   const [formData, setFormData] = useState<FormFields>(initialFormState);
@@ -58,6 +59,14 @@ const RequestInviteForm: React.FC = () => {
     } as RequestInvite);
   };
 
+  const handleModalChange = useCallback(
+    (modal: Current) => {
+      setModal(modal);
+      setFormData(initialFormState);
+    },
+    [setModal, setFormData]
+  );
+
   useEffect(() => {
     const errorMessage = error?.response?.data.errorMessage;
 
@@ -68,15 +77,15 @@ const RequestInviteForm: React.FC = () => {
 
   useEffect(() => {
     if (status === "success") {
-      setModal("success");
+      handleModalChange("success");
       reset();
     }
-  }, [status, reset, setModal]);
+  }, [status, reset, handleModalChange]);
 
   return (
     <BUIModal
       isOpen={modal === "form"}
-      handleClose={() => setModal("closed")}
+      handleClose={() => handleModalChange("closed")}
       title="Request an invite"
     >
       <form className="space-y-6" onSubmit={handleSubmit}>
