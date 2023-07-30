@@ -1,16 +1,16 @@
-import { useState } from "react";
-import { RequestInviteForm } from "./RequestInviteForm";
 import { BUIButton } from "../../components/BUIButton";
+import { RequestInviteForm } from "./RequestInviteForm";
+import { SuccessModal } from "./SuccessModal";
+import { useModalDisplay } from "./useModalDisplay";
 
 const RequestInviteButton: React.FC = () => {
-  const [isFormOpen, setIsFormOpen] = useState(false);
+  const { setModal } = useModalDisplay();
 
   return (
     <>
-      <BUIButton onClick={() => setIsFormOpen(true)}>
-        Request an invite
-      </BUIButton>
-      <RequestInviteForm isOpen={isFormOpen} setIsOpen={setIsFormOpen} />
+      <BUIButton onClick={() => setModal("form")}>Request an invite</BUIButton>
+      <RequestInviteForm />
+      <SuccessModal />
     </>
   );
 };

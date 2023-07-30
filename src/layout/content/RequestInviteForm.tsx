@@ -10,16 +10,13 @@ import {
 } from "./validation";
 import clone from "just-clone";
 import { useRequestInvite } from "./useRequestInvite";
+import { useModalDisplay } from "./useModalDisplay";
 
-interface ComponentProps {
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const RequestInviteForm: React.FC<ComponentProps> = ({ isOpen, setIsOpen }) => {
+const RequestInviteForm: React.FC = () => {
   const [formData, setFormData] = useState<FormFields>(initialFormState);
-  const { mutate: sendRequest, status, error } = useRequestInvite();
+  const { mutate: sendRequest, status, error, reset } = useRequestInvite();
   const [serverError, setServerError] = useState("");
+  const { modal, setModal } = useModalDisplay();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -69,8 +66,19 @@ const RequestInviteForm: React.FC<ComponentProps> = ({ isOpen, setIsOpen }) => {
     }
   }, [status, error]);
 
+  useEffect(() => {
+    if (status === "success") {
+      setModal("success");
+      reset();
+    }
+  }, [status, reset, setModal]);
+
   return (
-    <BUIModal isOpen={isOpen} setIsOpen={setIsOpen} title="Request an invite">
+    <BUIModal
+      isOpen={modal === "form"}
+      handleClose={() => setModal("closed")}
+      title="Request an invite"
+    >
       <form className="space-y-6" onSubmit={handleSubmit}>
         {Object.keys(formData).map((objectKey) => {
           const element = formData[objectKey as FormFieldNames];

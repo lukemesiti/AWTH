@@ -1,19 +1,23 @@
 import { BUIModal } from "../../components";
 import { BUIButton } from "../../components/BUIButton";
+import { useModalDisplay } from "./useModalDisplay";
 
-interface ComponentProps {
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
+const SuccessModal: React.FC = () => {
+  const { modal, setModal } = useModalDisplay();
 
-const SuccessModal: React.FC<ComponentProps> = ({ isOpen, setIsOpen }) => {
   return (
-    <BUIModal isOpen={isOpen} setIsOpen={setIsOpen} title="All done!">
+    <BUIModal
+      isOpen={modal === "success"}
+      handleClose={() => setModal("closed")}
+      title="All done!"
+    >
       <p>
         You will be one of the first to experience Broccoli & Co. when we
         launch.
       </p>
-      <BUIButton fullWidth>Ok</BUIButton>
+      <BUIButton fullWidth onClick={() => setModal("closed")}>
+        Ok
+      </BUIButton>
     </BUIModal>
   );
 };
