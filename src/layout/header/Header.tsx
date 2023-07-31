@@ -8,9 +8,7 @@ const Header: React.FC = () => {
         aria-label="Global"
       >
         <div className="flex lg:flex-1">
-          <a href="#" className="-m-1.5 p-1.5">
-            <h1>Broccoli & Co.</h1>
-          </a>
+          <h1 className="text-3xl -m-1.5 p-1.5">Broccoli & Co.</h1>
         </div>
       </nav>
     </header>
