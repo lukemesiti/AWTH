@@ -1,7 +1,8 @@
 import clone from "just-clone";
 import { useCallback, useEffect, useState } from "react";
-import { BUIFormInput, BUIModal, BUIButton } from "../components";
+import { BUIButton, BUIFormInput, BUIModal } from "../components";
 import { Current, useModalDisplay } from "../context";
+import { REQUEST_INVITE_FORM_TEST_ID } from "../layout/content";
 import { initialFormState } from "./helpers";
 import {
   FormFieldNames,
@@ -11,65 +12,46 @@ import {
   SUBMIT_BUTTON_TEST_ID,
 } from "./types";
 import { useRequestInvite } from "./useRequestInvite";
-import {
-  convertFormFieldsToFormValues,
-  setFormErrorsToFormFields,
-  validateForm,
-} from "./validation";
+import { formHasError, validateForm } from "./validation";
 
 const RequestInviteForm: React.FC = () => {
-  const [formData, setFormData] = useState<FormFields>(initialFormState);
+  const [form, setForm] = useState<FormFields>(initialFormState);
   const { mutate: sendRequest, status, error, reset } = useRequestInvite();
   const [serverError, setServerError] = useState("");
   const { modal, setModal } = useModalDisplay();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    const clonedFormData = clone(formData);
+    const clonedForm = clone(form);
 
-    clonedFormData[name as FormFieldNames] = {
-      ...clonedFormData[name as FormFieldNames],
-      value,
-    };
+    clonedForm[name as FormFieldNames].value = value;
 
-    setFormData(clonedFormData);
+    setForm(clonedForm);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setServerError("");
 
-    const validationErrors = validateForm(
-      convertFormFieldsToFormValues(formData)
-    );
+    const validatedForm = validateForm(form);
 
-    const formDataWithErrors = setFormErrorsToFormFields(
-      formData,
-      validationErrors
-    );
-    setFormData(formDataWithErrors);
+    setForm(validatedForm);
 
-    if (
-      validationErrors.name ||
-      validationErrors.email ||
-      validationErrors.confirmEmail
-    ) {
-      return;
+    if (!formHasError(validatedForm)) {
+      sendRequest({
+        name: validatedForm[FormFieldNames.Name].value,
+        email: validatedForm[FormFieldNames.Email].value,
+      } as RequestInvite);
     }
-
-    sendRequest({
-      name: formDataWithErrors[FormFieldNames.Name].value,
-      email: formDataWithErrors[FormFieldNames.Email].value,
-    } as RequestInvite);
   };
 
   const handleModalChange = useCallback(
     (modal: Current) => {
       setModal(modal);
-      setFormData(initialFormState);
+      setForm(initialFormState);
       setServerError("");
     },
-    [setModal, setFormData]
+    [setModal, setForm]
   );
 
   useEffect(() => {
@@ -92,11 +74,11 @@ const RequestInviteForm: React.FC = () => {
       isOpen={modal === "form"}
       handleClose={() => handleModalChange("closed")}
       title="Request an invite"
-      testId="request-invite-form"
+      testId={REQUEST_INVITE_FORM_TEST_ID}
     >
       <form onSubmit={handleSubmit}>
-        {Object.keys(formData).map((objectKey) => {
-          const element = formData[objectKey as FormFieldNames];
+        {Object.keys(form).map((objectKey) => {
+          const element = form[objectKey as FormFieldNames];
           return (
             <div className="mt-4" key={objectKey}>
               <BUIFormInput

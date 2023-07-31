@@ -1,7 +1,8 @@
-import { FormFieldNames } from "../types";
-import { FormErrors, FormValidationItem, FormValues } from "./types";
+import { setFormErrorsToFormFields } from ".";
+import { FormFieldNames, FormFields } from "../types";
+import { FormValidationItem } from "./types";
 
-export function validateForm(form: FormValues): FormErrors {
+export function validateForm(form: FormFields): FormFields {
   const nameError = validateField(form.name);
   const emailError = validateEmail(form.email);
   let confirmEmailError = validateEmail(form.confirmEmail);
@@ -14,11 +15,11 @@ export function validateForm(form: FormValues): FormErrors {
     confirmEmailError = "Emails must match";
   }
 
-  return {
+  return setFormErrorsToFormFields(form, {
     [FormFieldNames.Name]: nameError,
     [FormFieldNames.Email]: emailError,
     [FormFieldNames.ConfirmEmail]: confirmEmailError,
-  };
+  });
 }
 
 export function validateField(field: FormValidationItem): string {

@@ -12,7 +12,7 @@ const SuccessModal: React.FC = () => {
       title="All done!"
       testId={SUCCESS_MODAL_TEST_ID}
     >
-      <p>
+      <p className="text-md mb-8">
         You will be one of the first to experience Broccoli & Co. when we
         launch.
       </p>

@@ -9,10 +9,10 @@ const Content: React.FC = () => {
     >
       <div className="text-center max-w-screen-sm">
         <h1 className="text-4xl md:text-6xl mb-5">
-          A better way to enjoy every day.
+          A better way to enjoy every day 🥰
         </h1>
         <p className="text-2xl md:text-3xl mb-10">
-          Be the first to know when we launch.
+          🤙 Be the first to know when we launch 🤙
         </p>
         <RequestInviteButton />
       </div>
