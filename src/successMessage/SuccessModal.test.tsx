@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import { SuccessModal } from ".";
+import { SUCCESS_MODAL_TEST_ID, SuccessModal } from ".";
 import { ModalDisplayContext, State } from "../context";
 
 global.ResizeObserver = class FakeResizeObserver {
@@ -30,6 +30,8 @@ describe("SuccessModal", () => {
     renderSuccessModal();
 
     // Assert
-    expect(await screen.findByTestId("success-modal")).toBeInTheDocument();
+    expect(
+      await screen.findByTestId(SUCCESS_MODAL_TEST_ID)
+    ).toBeInTheDocument();
   });
 });

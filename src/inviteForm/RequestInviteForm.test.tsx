@@ -1,12 +1,9 @@
-import {
-  fireEvent,
-  screen,
-  waitForElementToBeRemoved,
-} from "@testing-library/react";
+import { fireEvent, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { rest } from "msw";
 import { describe, expect, it } from "vitest";
 import { RequestInviteButton } from "../layout/content/RequestInviteButton";
+import { SUCCESS_MODAL_TEST_ID } from "../successMessage";
 import { server } from "../utils/testSetup";
 import { render } from "../utils/testUtils";
 import {
@@ -14,7 +11,6 @@ import {
   SERVER_ERROR_TEST_ID,
   SUBMIT_BUTTON_TEST_ID,
 } from "./types";
-import { SUCCESS_MODAL_TEST_ID } from "../successMessage";
 
 global.ResizeObserver = class FakeResizeObserver {
   observe() {}
@@ -90,10 +86,11 @@ describe("RequestInviteForm", () => {
       target: { value: email },
     });
     await userEvent.click(submitButton);
-    await waitForElementToBeRemoved(submitButton);
 
     // Assert
-    expect(screen.getByTestId(SUCCESS_MODAL_TEST_ID)).toBeInTheDocument();
+    await waitFor(() =>
+      expect(screen.getByTestId(SUCCESS_MODAL_TEST_ID)).toBeInTheDocument()
+    );
     expect(submitButton).not.toBeInTheDocument();
   });
 
