@@ -1,8 +1,8 @@
 import { fireEvent, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
 import userEvent from "@testing-library/user-event";
-import { render } from "../utils/testUtils";
+import { describe, expect, it } from "vitest";
 import { RequestInviteButton } from "../layout/content/RequestInviteButton";
+import { render } from "../utils/testUtils";
 import { FormFieldNames } from "./types";
 
 global.ResizeObserver = class FakeResizeObserver {
@@ -61,5 +61,31 @@ describe("RequestInviteForm", () => {
     expect(
       screen.getByTestId(`${FormFieldNames.ConfirmEmail}-error`)
     ).toBeInTheDocument();
+  });
+
+  it("should be in a loading state when network request is in progress", async () => {
+    // Arrange
+    render(<RequestInviteButton />);
+    await userEvent.click(screen.getByText("Request an invite"));
+    const submitButton = screen.getByTestId("submit-button");
+    const nameInput = screen.getByTestId(FormFieldNames.Name);
+    const emailInput = screen.getByTestId(FormFieldNames.Email);
+    const confirmEmailInput = screen.getByTestId(FormFieldNames.ConfirmEmail);
+    const email = "test@email.com";
+
+    // Act
+    fireEvent.change(nameInput, { target: { value: "name" } });
+    fireEvent.change(emailInput, { target: { value: email } });
+    fireEvent.change(confirmEmailInput, {
+      target: { value: email },
+    });
+    await userEvent.click(submitButton);
+
+    // Assert
+    expect(submitButton).toBeInTheDocument();
+    expect(screen.getByText("Sending, please wait...")).toBeInTheDocument();
+    expect(nameInput).toBeDisabled();
+    expect(emailInput).toBeDisabled();
+    expect(confirmEmailInput).toBeDisabled();
   });
 });

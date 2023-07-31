@@ -10,16 +10,18 @@ interface ComponentProps
 }
 
 const BUIButton: React.FC<PropsWithChildren<ComponentProps>> = (props) => {
+  const { type, fullWidth, testId, children, ...restProps } = props;
+
   return (
     <button
-      type={props.type ?? "button"}
-      onClick={props.onClick}
+      type={type ?? "button"}
       className={`${
-        props.fullWidth ? "w-full" : ""
+        fullWidth ? "w-full" : ""
       } bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded`}
-      data-testid={props.testId}
+      data-testid={testId}
+      {...restProps}
     >
-      {props.children}
+      {children}
     </button>
   );
 };

@@ -97,6 +97,7 @@ const RequestInviteForm: React.FC = () => {
                 element={element}
                 onChange={handleChange}
                 testId={objectKey}
+                disabled={status === "loading"}
               />
             </div>
           );
