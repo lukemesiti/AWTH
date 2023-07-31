@@ -67,6 +67,7 @@ const RequestInviteForm: React.FC = () => {
     (modal: Current) => {
       setModal(modal);
       setFormData(initialFormState);
+      setServerError("");
     },
     [setModal, setFormData]
   );
@@ -93,11 +94,11 @@ const RequestInviteForm: React.FC = () => {
       title="Request an invite"
       testId="request-invite-form"
     >
-      <form className="space-y-6" onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         {Object.keys(formData).map((objectKey) => {
           const element = formData[objectKey as FormFieldNames];
           return (
-            <div className="mt-2" key={objectKey}>
+            <div className="mt-4" key={objectKey}>
               <BUIFormInput
                 id={objectKey}
                 element={element}
@@ -109,12 +110,14 @@ const RequestInviteForm: React.FC = () => {
           );
         })}
 
-        <BUIButton fullWidth type="submit" testId={SUBMIT_BUTTON_TEST_ID}>
-          {status === "loading" ? "Sending, please wait..." : "Send"}
-        </BUIButton>
+        <div className="mt-10">
+          <BUIButton fullWidth type="submit" testId={SUBMIT_BUTTON_TEST_ID}>
+            {status === "loading" ? "Sending, please wait..." : "Send"}
+          </BUIButton>
+        </div>
         {serverError && (
           <p
-            className="text-red-600 text-center"
+            className="text-red-600 text-center mt-4"
             data-testid={SERVER_ERROR_TEST_ID}
           >
             {serverError}
