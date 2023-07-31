@@ -7,11 +7,11 @@ const RequestInviteButton: React.FC = () => {
   const { setModal } = useModalDisplay();
 
   return (
-    <>
+    <div data-testid="request-invite-button">
       <BUIButton onClick={() => setModal("form")}>Request an invite</BUIButton>
       <RequestInviteForm />
       <SuccessModal />
-    </>
+    </div>
   );
 };
 

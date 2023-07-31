@@ -85,6 +85,7 @@ const RequestInviteForm: React.FC = () => {
       isOpen={modal === "form"}
       handleClose={() => handleModalChange("closed")}
       title="Request an invite"
+      testId="request-invite-form"
     >
       <form className="space-y-6" onSubmit={handleSubmit}>
         {Object.keys(formData).map((objectKey) => {
@@ -95,12 +96,13 @@ const RequestInviteForm: React.FC = () => {
                 id={objectKey}
                 element={element}
                 onChange={handleChange}
+                testId={objectKey}
               />
             </div>
           );
         })}
 
-        <BUIButton fullWidth type="submit">
+        <BUIButton fullWidth type="submit" testId="submit-button">
           {status === "loading" ? "Sending, please wait..." : "Send"}
         </BUIButton>
         {serverError && (

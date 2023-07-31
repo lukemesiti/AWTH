@@ -5,6 +5,7 @@ interface ComponentProps {
   title: string;
   isOpen: boolean;
   handleClose: () => void;
+  testId?: string;
 }
 
 const BUIModal: React.FC<PropsWithChildren<ComponentProps>> = ({
@@ -12,10 +13,16 @@ const BUIModal: React.FC<PropsWithChildren<ComponentProps>> = ({
   isOpen,
   handleClose,
   children,
+  testId,
 }) => {
   return (
     <Transition appear show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={handleClose}>
+      <Dialog
+        as="div"
+        data-testid={testId}
+        className="relative z-10"
+        onClose={handleClose}
+      >
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"

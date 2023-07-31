@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { render } from "@testing-library/react";
 import { BUIModal } from ".";
+import { render } from "../utils/testUtils";
 
 describe("BUIModal", () => {
   it("should render with title and children components", () => {

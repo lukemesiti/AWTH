@@ -1,6 +1,6 @@
-import { render } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { BUIButton } from ".";
+import { render } from "../utils/testUtils";
 
 describe("BUIButton", () => {
   it("should render with text", () => {

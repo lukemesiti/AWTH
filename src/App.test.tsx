@@ -1,18 +1,17 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-
 import App from "./App";
+import { render } from "./utils/testUtils";
 
 describe("App", () => {
   it("renders app parent component", () => {
     // Arrange
     // Act
-    const { container } = render(<App />);
+    render(<App />);
 
     // Assert
-    expect(container).toBeDefined();
-    expect(screen.getByTestId("header")).toBeDefined();
-    expect(screen.getByTestId("content")).toBeDefined();
-    expect(screen.getByTestId("footer")).toBeDefined();
+    expect(screen.getByTestId("header")).toBeInTheDocument();
+    expect(screen.getByTestId("content")).toBeInTheDocument();
+    expect(screen.getByTestId("footer")).toBeInTheDocument();
   });
 });

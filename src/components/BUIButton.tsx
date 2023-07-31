@@ -6,6 +6,7 @@ interface ComponentProps
     HTMLButtonElement
   > {
   fullWidth?: boolean;
+  testId?: string;
 }
 
 const BUIButton: React.FC<PropsWithChildren<ComponentProps>> = (props) => {
@@ -16,6 +17,7 @@ const BUIButton: React.FC<PropsWithChildren<ComponentProps>> = (props) => {
       className={`${
         props.fullWidth ? "w-full" : ""
       } bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded`}
+      data-testid={props.testId}
     >
       {props.children}
     </button>
