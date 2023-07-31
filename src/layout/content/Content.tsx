@@ -1,9 +1,10 @@
 import { RequestInviteButton } from "./RequestInviteButton";
+import { CONTENT_TEST_ID } from "./types";
 
 const Content: React.FC = () => {
   return (
     <main
-      data-testid="content"
+      data-testid={CONTENT_TEST_ID}
       className="flex-auto flex items-center justify-center p-3"
     >
       <div className="text-center">

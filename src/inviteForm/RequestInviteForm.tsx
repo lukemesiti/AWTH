@@ -3,7 +3,13 @@ import { useCallback, useEffect, useState } from "react";
 import { BUIFormInput, BUIModal, BUIButton } from "../components";
 import { Current, useModalDisplay } from "../context";
 import { initialFormState } from "./helpers";
-import { FormFieldNames, FormFields, RequestInvite } from "./types";
+import {
+  FormFieldNames,
+  FormFields,
+  RequestInvite,
+  SERVER_ERROR_TEST_ID,
+  SUBMIT_BUTTON_TEST_ID,
+} from "./types";
 import { useRequestInvite } from "./useRequestInvite";
 import {
   convertFormFieldsToFormValues,
@@ -103,11 +109,14 @@ const RequestInviteForm: React.FC = () => {
           );
         })}
 
-        <BUIButton fullWidth type="submit" testId="submit-button">
+        <BUIButton fullWidth type="submit" testId={SUBMIT_BUTTON_TEST_ID}>
           {status === "loading" ? "Sending, please wait..." : "Send"}
         </BUIButton>
         {serverError && (
-          <p className="text-red-600 text-center" data-testid="server-error">
+          <p
+            className="text-red-600 text-center"
+            data-testid={SERVER_ERROR_TEST_ID}
+          >
             {serverError}
           </p>
         )}

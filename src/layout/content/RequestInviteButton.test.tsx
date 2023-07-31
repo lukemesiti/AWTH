@@ -3,6 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 import { render } from "../../utils/testUtils";
 import { RequestInviteButton } from "./RequestInviteButton";
+import { REQUEST_INVITE_BUTTON_ID } from ".";
 
 global.ResizeObserver = class FakeResizeObserver {
   observe() {}
@@ -18,7 +19,7 @@ describe("RequestInviteButton", () => {
     render(<RequestInviteButton />);
 
     // Assert
-    expect(screen.getByTestId("request-invite-button")).toBeInTheDocument();
+    expect(screen.getByTestId(REQUEST_INVITE_BUTTON_ID)).toBeInTheDocument();
     expect(screen.getByText("Request an invite")).toBeInTheDocument();
   });
 

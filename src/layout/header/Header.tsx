@@ -1,6 +1,8 @@
+import { HEADER_TEST_ID } from "./types";
+
 const Header: React.FC = () => {
   return (
-    <header data-testid="header" className="bg-white">
+    <header data-testid={HEADER_TEST_ID} className="bg-white">
       <nav
         className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
         aria-label="Global"

@@ -9,7 +9,12 @@ import { describe, expect, it } from "vitest";
 import { RequestInviteButton } from "../layout/content/RequestInviteButton";
 import { server } from "../utils/testSetup";
 import { render } from "../utils/testUtils";
-import { FormFieldNames } from "./types";
+import {
+  FormFieldNames,
+  SERVER_ERROR_TEST_ID,
+  SUBMIT_BUTTON_TEST_ID,
+} from "./types";
+import { SUCCESS_MODAL_TEST_ID } from "../successMessage";
 
 global.ResizeObserver = class FakeResizeObserver {
   observe() {}
@@ -24,13 +29,12 @@ describe("RequestInviteForm", () => {
 
     // Act
     await userEvent.click(screen.getByText("Request an invite"));
-    // await screen.getByTestId("request-invite-form");
 
     // Assert
     expect(screen.getByTestId(FormFieldNames.Name)).toBeInTheDocument();
     expect(screen.getByTestId(FormFieldNames.Email)).toBeInTheDocument();
     expect(screen.getByTestId(FormFieldNames.ConfirmEmail)).toBeInTheDocument();
-    expect(screen.getByTestId("submit-button")).toBeInTheDocument();
+    expect(screen.getByTestId(SUBMIT_BUTTON_TEST_ID)).toBeInTheDocument();
     expect(
       screen.queryByTestId(`${FormFieldNames.Name}-error`)
     ).not.toBeInTheDocument();
@@ -49,7 +53,7 @@ describe("RequestInviteForm", () => {
     const nameInput = screen.getByTestId(FormFieldNames.Name);
     const emailInput = screen.getByTestId(FormFieldNames.Email);
     const confirmEmailInput = screen.getByTestId(FormFieldNames.ConfirmEmail);
-    const submitButton = screen.getByTestId("submit-button");
+    const submitButton = screen.getByTestId(SUBMIT_BUTTON_TEST_ID);
 
     // Act
     fireEvent.change(nameInput, { target: { value: "n" } });
@@ -73,7 +77,7 @@ describe("RequestInviteForm", () => {
     // Arrange
     render(<RequestInviteButton />);
     await userEvent.click(screen.getByText("Request an invite"));
-    const submitButton = screen.getByTestId("submit-button");
+    const submitButton = screen.getByTestId(SUBMIT_BUTTON_TEST_ID);
     const nameInput = screen.getByTestId(FormFieldNames.Name);
     const emailInput = screen.getByTestId(FormFieldNames.Email);
     const confirmEmailInput = screen.getByTestId(FormFieldNames.ConfirmEmail);
@@ -89,7 +93,7 @@ describe("RequestInviteForm", () => {
     await waitForElementToBeRemoved(submitButton);
 
     // Assert
-    expect(screen.getByTestId("success-modal")).toBeInTheDocument();
+    expect(screen.getByTestId(SUCCESS_MODAL_TEST_ID)).toBeInTheDocument();
     expect(submitButton).not.toBeInTheDocument();
   });
 
@@ -106,7 +110,7 @@ describe("RequestInviteForm", () => {
 
     render(<RequestInviteButton />);
     await userEvent.click(screen.getByText("Request an invite"));
-    const submitButton = screen.getByTestId("submit-button");
+    const submitButton = screen.getByTestId(SUBMIT_BUTTON_TEST_ID);
     const nameInput = screen.getByTestId(FormFieldNames.Name);
     const emailInput = screen.getByTestId(FormFieldNames.Email);
     const confirmEmailInput = screen.getByTestId(FormFieldNames.ConfirmEmail);
@@ -121,6 +125,6 @@ describe("RequestInviteForm", () => {
     await userEvent.click(submitButton);
 
     // Assert
-    expect(await screen.getByTestId("server-error")).toBeInTheDocument();
+    expect(screen.getByTestId(SERVER_ERROR_TEST_ID)).toBeInTheDocument();
   });
 });

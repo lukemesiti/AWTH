@@ -2,12 +2,13 @@ import { BUIButton } from "../../components";
 import { RequestInviteForm } from "../../inviteForm";
 import { SuccessModal } from "../../successMessage";
 import { useModalDisplay } from "../../context";
+import { REQUEST_INVITE_BUTTON_ID } from ".";
 
 const RequestInviteButton: React.FC = () => {
   const { setModal } = useModalDisplay();
 
   return (
-    <div data-testid="request-invite-button">
+    <div data-testid={REQUEST_INVITE_BUTTON_ID}>
       <BUIButton onClick={() => setModal("form")}>Request an invite</BUIButton>
       <RequestInviteForm />
       <SuccessModal />
