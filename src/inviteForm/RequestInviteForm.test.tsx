@@ -1,7 +1,13 @@
-import { fireEvent, screen } from "@testing-library/react";
+import {
+  fireEvent,
+  screen,
+  waitForElementToBeRemoved,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { rest } from "msw";
 import { describe, expect, it } from "vitest";
 import { RequestInviteButton } from "../layout/content/RequestInviteButton";
+import { server } from "../utils/testSetup";
 import { render } from "../utils/testUtils";
 import { FormFieldNames } from "./types";
 
@@ -63,7 +69,7 @@ describe("RequestInviteForm", () => {
     ).toBeInTheDocument();
   });
 
-  it("should be in a loading state when network request is in progress", async () => {
+  it("should be in a success state when network request is successful", async () => {
     // Arrange
     render(<RequestInviteButton />);
     await userEvent.click(screen.getByText("Request an invite"));
@@ -80,12 +86,41 @@ describe("RequestInviteForm", () => {
       target: { value: email },
     });
     await userEvent.click(submitButton);
+    await waitForElementToBeRemoved(submitButton);
 
     // Assert
-    expect(submitButton).toBeInTheDocument();
-    expect(screen.getByText("Sending, please wait...")).toBeInTheDocument();
-    expect(nameInput).toBeDisabled();
-    expect(emailInput).toBeDisabled();
-    expect(confirmEmailInput).toBeDisabled();
+    expect(screen.getByTestId("success-modal")).toBeInTheDocument();
+    expect(submitButton).not.toBeInTheDocument();
+  });
+
+  it("should be in a fail state when network request is unsuccessful", async () => {
+    // Arrange
+    server.use(
+      rest.post("*", (_, res, ctx) => {
+        return res.once(
+          ctx.status(500),
+          ctx.json({ errorMessage: "request failed message" })
+        );
+      })
+    );
+
+    render(<RequestInviteButton />);
+    await userEvent.click(screen.getByText("Request an invite"));
+    const submitButton = screen.getByTestId("submit-button");
+    const nameInput = screen.getByTestId(FormFieldNames.Name);
+    const emailInput = screen.getByTestId(FormFieldNames.Email);
+    const confirmEmailInput = screen.getByTestId(FormFieldNames.ConfirmEmail);
+    const email = "usedemail@airwallex.com";
+
+    // Act
+    fireEvent.change(nameInput, { target: { value: "name" } });
+    fireEvent.change(emailInput, { target: { value: email } });
+    fireEvent.change(confirmEmailInput, {
+      target: { value: email },
+    });
+    await userEvent.click(submitButton);
+
+    // Assert
+    expect(await screen.getByTestId("server-error")).toBeInTheDocument();
   });
 });

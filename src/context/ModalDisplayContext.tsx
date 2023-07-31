@@ -2,7 +2,7 @@ import React, { PropsWithChildren, createContext, useState } from "react";
 
 export type Current = "closed" | "form" | "success";
 
-type State = {
+export type State = {
   modal: Current;
   setModal: React.Dispatch<React.SetStateAction<Current>>;
 };

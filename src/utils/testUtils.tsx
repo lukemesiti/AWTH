@@ -1,12 +1,14 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { RenderOptions, cleanup, render } from "@testing-library/react";
+import { RenderOptions, render } from "@testing-library/react";
+import { rest } from "msw";
 import { ReactElement } from "react";
-import { afterEach } from "vitest";
 import { ModalDisplayProvider } from "../context";
 
-afterEach(() => {
-  cleanup();
-});
+export const handlers = [
+  rest.post("*", (_, res, ctx) => {
+    return res(ctx.status(200), ctx.json("success"));
+  }),
+];
 
 const queryClient = new QueryClient({
   defaultOptions: {

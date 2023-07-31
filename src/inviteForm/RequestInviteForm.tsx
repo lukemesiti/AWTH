@@ -107,7 +107,9 @@ const RequestInviteForm: React.FC = () => {
           {status === "loading" ? "Sending, please wait..." : "Send"}
         </BUIButton>
         {serverError && (
-          <p className="text-red-600 text-center">{serverError}</p>
+          <p className="text-red-600 text-center" data-testid="server-error">
+            {serverError}
+          </p>
         )}
       </form>
     </BUIModal>
