@@ -2,7 +2,7 @@ import { FOOTER_TEST_ID } from "./types";
 
 const Footer: React.FC = () => {
   return (
-    <footer data-testid={FOOTER_TEST_ID} className="text-center p-3 text-lg">
+    <footer data-testid={FOOTER_TEST_ID} className="text-center p-8 text-lg">
       <div>Made with 💚➕🍝 in Melbourne.</div>
       <div>©️ 2023 Broccoli & Co. All rights reserved.</div>
     </footer>
