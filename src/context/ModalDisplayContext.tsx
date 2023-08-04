@@ -12,10 +12,15 @@ export const ModalDisplayContext = createContext<{
   setModal: React.Dispatch<React.SetStateAction<Current>>;
 }>({} as State);
 
-export const ModalDisplayProvider: React.FC<PropsWithChildren> = ({
+interface ModalProps {
+  initialState: Current;
+}
+
+export const ModalDisplayProvider: React.FC<PropsWithChildren<ModalProps>> = ({
+  initialState,
   children,
 }) => {
-  const [modal, setModal] = useState<Current>("closed");
+  const [modal, setModal] = useState<Current>(initialState);
 
   return (
     <ModalDisplayContext.Provider value={{ modal, setModal }}>
