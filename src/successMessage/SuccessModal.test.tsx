@@ -11,7 +11,7 @@ global.ResizeObserver = class FakeResizeObserver {
 };
 
 describe("SuccessModal", () => {
-  it("should render and close with button is clicked", async () => {
+  it("should render and close when button is clicked", async () => {
     // Arrange
     const user = userEvent.setup();
 
