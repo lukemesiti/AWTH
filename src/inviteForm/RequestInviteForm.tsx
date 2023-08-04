@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import { BUIButton, BUIFormInput, BUIModal } from "../components";
 import { Current, useModalDisplay } from "../context";
 import { REQUEST_INVITE_FORM_TEST_ID } from "../layout/content";
-import { initialFormState } from "./helpers";
+import { handleFormChange, initialFormState } from "./helpers";
 import {
   FormFieldNames,
   FormFields,
@@ -19,15 +19,6 @@ const RequestInviteForm: React.FC = () => {
   const { mutate: sendRequest, status, error, reset } = useRequestInvite();
   const [serverError, setServerError] = useState("");
   const { modal, setModal } = useModalDisplay();
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    const clonedForm = clone(form);
-
-    clonedForm[name as FormFieldNames].value = value;
-
-    setForm(clonedForm);
-  };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -84,7 +75,7 @@ const RequestInviteForm: React.FC = () => {
               <BUIFormInput
                 id={objectKey}
                 element={element}
-                onChange={handleChange}
+                onChange={(event) => setForm(handleFormChange(event, form))}
                 testId={objectKey}
                 disabled={status === "loading"}
               />
