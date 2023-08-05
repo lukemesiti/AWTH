@@ -1,4 +1,3 @@
-import clone from "just-clone";
 import { useCallback, useEffect, useState } from "react";
 import { BUIButton, BUIFormInput, BUIModal } from "../components";
 import { Current, useModalDisplay } from "../context";

@@ -6,7 +6,7 @@ exports[`BUIButton > should render with text 1`] = `
   "baseElement": <body>
     <div>
       <button
-        class=" bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+        class=" bg-green-600 hover:bg-green-700 text-white text-lg font-bold py-2 px-4 rounded"
         type="button"
       >
         Click me
@@ -15,7 +15,7 @@ exports[`BUIButton > should render with text 1`] = `
   </body>,
   "container": <div>
     <button
-      class=" bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+      class=" bg-green-600 hover:bg-green-700 text-white text-lg font-bold py-2 px-4 rounded"
       type="button"
     >
       Click me

@@ -21,10 +21,11 @@ global.ResizeObserver = class FakeResizeObserver {
 describe("RequestInviteForm", () => {
   it("should show form with name, email, confirm email fields and submit button. No errors shown", async () => {
     // Arrange
+    const user = userEvent.setup();
     render(<RequestInviteButton />);
 
     // Act
-    await userEvent.click(screen.getByText("Request an invite"));
+    await user.click(screen.getByText("Request an invite"));
 
     // Assert
     expect(screen.getByTestId(FormFieldNames.Name)).toBeInTheDocument();
@@ -44,8 +45,9 @@ describe("RequestInviteForm", () => {
 
   it("should display validation errors when form is invalid and submit button is clicked", async () => {
     // Arrange
+    const user = userEvent.setup();
     render(<RequestInviteButton />);
-    await userEvent.click(screen.getByText("Request an invite"));
+    await user.click(screen.getByText("Request an invite"));
     const nameInput = screen.getByTestId(FormFieldNames.Name);
     const emailInput = screen.getByTestId(FormFieldNames.Email);
     const confirmEmailInput = screen.getByTestId(FormFieldNames.ConfirmEmail);
@@ -71,8 +73,9 @@ describe("RequestInviteForm", () => {
 
   it("should be in a success state when network request is successful", async () => {
     // Arrange
+    const user = userEvent.setup();
     render(<RequestInviteButton />);
-    await userEvent.click(screen.getByText("Request an invite"));
+    await user.click(screen.getByText("Request an invite"));
     const submitButton = screen.getByTestId(SUBMIT_BUTTON_TEST_ID);
     const nameInput = screen.getByTestId(FormFieldNames.Name);
     const emailInput = screen.getByTestId(FormFieldNames.Email);
@@ -96,6 +99,7 @@ describe("RequestInviteForm", () => {
 
   it("should be in a fail state when network request is unsuccessful", async () => {
     // Arrange
+    const user = userEvent.setup();
     server.use(
       rest.post("*", (_, res, ctx) => {
         return res.once(
@@ -106,7 +110,7 @@ describe("RequestInviteForm", () => {
     );
 
     render(<RequestInviteButton />);
-    await userEvent.click(screen.getByText("Request an invite"));
+    await user.click(screen.getByText("Request an invite"));
     const submitButton = screen.getByTestId(SUBMIT_BUTTON_TEST_ID);
     const nameInput = screen.getByTestId(FormFieldNames.Name);
     const emailInput = screen.getByTestId(FormFieldNames.Email);
@@ -119,7 +123,7 @@ describe("RequestInviteForm", () => {
     fireEvent.change(confirmEmailInput, {
       target: { value: email },
     });
-    await userEvent.click(submitButton);
+    await user.click(submitButton);
 
     // Assert
     expect(screen.getByTestId(SERVER_ERROR_TEST_ID)).toBeInTheDocument();

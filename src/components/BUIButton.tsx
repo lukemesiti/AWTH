@@ -17,7 +17,7 @@ const BUIButton: React.FC<PropsWithChildren<ComponentProps>> = (props) => {
       type={type ?? "button"}
       className={`${
         fullWidth ? "w-full" : ""
-      } bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded`}
+      } bg-green-600 hover:bg-green-700 text-white text-lg font-bold py-2 px-4 rounded`}
       data-testid={testId}
       {...restProps}
     >
