@@ -4,7 +4,7 @@ const Footer: React.FC = () => {
   return (
     <footer
       data-testid={FOOTER_TEST_ID}
-      className="text-center py-8 px-1 md:text-lg sm:text-md"
+      className="text-center py-8 px-1 md:text-lg sm:text-md text-white"
     >
       <div>Made with 💚➕🍝 in Melbourne.</div>
       <div>©️ 2023 Broccoli & Co. All rights reserved.</div>

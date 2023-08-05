@@ -28,3 +28,4 @@
 # Assumptions
 
 - Validation. The brief stated that the name input should be at least 3 characters. I decided to also put an upper limit of 100 characters on all inputs. I thought this was a realistic limit. In a real world situation I would discuss this with the relevant people in my team, either product/design and/or backend developer.
+- Brand. For the hypothetical Broccoli & Co. company I have made the assumption that their target audience is 25 - 35 year olds and they are wanting to represent themselves a young, vibrant and joyful.

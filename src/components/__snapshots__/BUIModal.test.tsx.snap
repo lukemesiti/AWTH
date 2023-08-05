@@ -20,12 +20,12 @@ exports[`BUIModal > should render with title and children components 1`] = `
       class="flex min-h-full items-center justify-center p-4 text-center"
     >
       <div
-        class="w-full max-w-md transform overflow-hidden rounded-2xl bg-amber-50 p-6 text-left align-middle shadow-xl transition-all ease-out duration-300 opacity-0 scale-95"
+        class="w-full max-w-md transform overflow-hidden rounded-2xl backdrop-blur-xl bg-slate-50 bg-opacity-60 p-6 text-left align-middle shadow-xl transition-all md:text-lg sm:text-md ease-out duration-300 opacity-0 scale-95"
         data-headlessui-state="open"
         id="headlessui-dialog-panel-:r1:"
       >
         <h3
-          class="text-center text-2xl font-medium leading-6 text-gray-900 mb-4"
+          class="text-center text-2xl font-medium leading-6 mb-4"
           data-headlessui-state="open"
           id="headlessui-dialog-title-:r2:"
         >
